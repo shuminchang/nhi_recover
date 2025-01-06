@@ -1,0 +1,35 @@
+<!-- breakeven/templates/breakeven/breakeven_analysis.html -->
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>健保看診次數損益平衡分析</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+    {% load custom_filters %}
+    <div class="container">
+        <h1 class="my-4">健保看診次數損益平衡分析</h1>
+        <p>動態調整參數，查看健保點數與損益平衡所需看診次數的對應關係。</p>
+
+        <form class="form-inline my-4" method="GET">
+            <label for="overtime_fee" class="mr-2">時薪 (每小時):</label>
+            <input type="number" id="overtime_fee" name="overtime_fee" value="{{ overtime_fee }}" class="form-control mr-4">
+            <label for="transport_fee" class="mr-2">交通費 (單次):</label>
+            <input type="number" id="transport_fee" name="transport_fee" value="{{ transport_fee }}" class="form-control mr-4">
+            <label for="registration_fee" class="mr-2">掛號費 (單次):</label>
+            <input type="number" id="registration_fee" name="registration_fee" value="{{ registration_fee }}" class="form-control">
+            <button type="submit" class="btn btn-primary ml-3">更新</button>
+        </form>
+
+        <h3>損益平衡看診次數圖表</h3>
+        <img src="data:image/png;base64,{{ img_buf }}" class="img-fluid" alt="損益平衡圖表">
+
+        <h3>每年所需看診次數</h3>
+        <div class="table-responsive">
+            {{ df|safe }}
+        </div>
+    </div>
+</body>
+</html>
